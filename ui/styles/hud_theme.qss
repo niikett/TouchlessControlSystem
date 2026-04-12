@@ -1,0 +1,139 @@
+{
+    color: #ffffff;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+QMainWindow {
+    background-color: #0a0a0f;
+}
+
+QFrame#hudPanel {
+    background-color: rgba(15, 20, 40, 200);
+    border: 1px solid rgba(0, 180, 255, 80);
+    border-radius: 15px;
+}
+
+QFrame#hudPanelActive {
+    background-color: rgba(0, 120, 255, 40);
+    border: 1px solid rgba(0, 180, 255, 150);
+    border-radius: 15px;
+}
+
+QLabel#hudTitle {
+    font-size: 14px;
+    font-weight: bold;
+    color: #00b4ff;
+    padding: 5px;
+}
+
+QLabel#hudTime {
+    font-size: 48px;
+    font-weight: 300;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+QLabel#hudDate {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 150);
+}
+
+QLabel#hudStatus {
+    font-size: 12px;
+    color: #00ff88;
+    padding: 3px 8px;
+}
+
+QLabel#hudLabel {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 180);
+    padding: 4px;
+}
+
+QPushButton#hudButton {
+    background-color: rgba(0, 120, 255, 50);
+    border: 1px solid rgba(0, 180, 255, 100);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 20px;
+    min-height: 40px;
+}
+
+QPushButton#hudButton:hover {
+    background-color: rgba(0, 150, 255, 100);
+    border: 1px solid rgba(0, 200, 255, 200);
+}
+
+QPushButton#hudButton:pressed {
+    background-color: rgba(0, 100, 255, 150);
+}
+
+QPushButton#appButton {
+    background-color: rgba(20, 30, 60, 180);
+    border: 1px solid rgba(0, 180, 255, 60);
+    border-radius: 16px;
+    color: #ffffff;
+    font-size: 11px;
+    padding: 10px;
+    min-width: 90px;
+    min-height: 90px;
+}
+
+QPushButton#appButton:hover {
+    background-color: rgba(0, 120, 255, 80);
+    border: 1px solid rgba(0, 200, 255, 150);
+}
+
+QLineEdit#hudInput {
+    background-color: rgba(255, 255, 255, 10);
+    border: 1px solid rgba(0, 180, 255, 80);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px 15px;
+    selection-background-color: rgba(0, 120, 255, 100);
+}
+
+QLineEdit#hudInput:focus {
+    border: 1px solid rgba(0, 200, 255, 200);
+    background-color: rgba(255, 255, 255, 15);
+}
+
+QTextEdit#hudTextArea {
+    background-color: rgba(255, 255, 255, 5);
+    border: 1px solid rgba(0, 180, 255, 50);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 13px;
+    padding: 10px;
+}
+
+QScrollBar:vertical {
+    background: rgba(255, 255, 255, 5);
+    width: 6px;
+    border-radius: 3px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(0, 180, 255, 80);
+    border-radius: 3px;
+    min-height: 30px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QFrame#notifBar {
+    background-color: rgba(0, 200, 100, 30);
+    border: 1px solid rgba(0, 200, 100, 80);
+    border-radius: 8px;
+}
+
+QFrame#errorBar {
+    background-color: rgba(255, 50, 50, 30);
+    border: 1px solid rgba(255, 50, 50, 80);
+    border-radius: 8px;
+}
