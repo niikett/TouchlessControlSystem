@@ -74,7 +74,6 @@ class CommandParser:
             raw_text=text,
         )
 
-    # ── YouTube ──────────────────────────────────────────
 
     def _parse_youtube(self, text: str) -> ParsedCommand | None:
         """
@@ -86,7 +85,7 @@ class CommandParser:
           - "pause youtube" / "resume youtube"
           - "open youtube"
         """
-        # Play on YouTube: "play lofi music on youtube"
+
         match = re.search(
             r"play\s+(.+?)\s+on\s+(?:youtube|you\s*tube)", text
         )
@@ -95,7 +94,6 @@ class CommandParser:
                 "youtube", "play", match.group(1).strip(), text
             )
 
-        # YouTube play: "youtube play lofi music"
         match = re.search(
             r"(?:youtube|you\s*tube)\s+play\s+(.+)", text
         )
@@ -104,7 +102,6 @@ class CommandParser:
                 "youtube", "play", match.group(1).strip(), text
             )
 
-        # Search YouTube: "search youtube for cooking recipes"
         match = re.search(
             r"(?:search|find|look\s*up)\s+(?:on\s+)?(?:youtube|you\s*tube)"
             r"\s+(?:for\s+)?(.+)",
@@ -115,7 +112,6 @@ class CommandParser:
                 "youtube", "search", match.group(1).strip(), text
             )
 
-        # YouTube search: "youtube search cooking recipes"
         match = re.search(
             r"(?:youtube|you\s*tube)\s+(?:search|find)\s+(?:for\s+)?(.+)",
             text,
@@ -125,20 +121,17 @@ class CommandParser:
                 "youtube", "search", match.group(1).strip(), text
             )
 
-        # Pause YouTube
         if re.search(
             r"(?:pause|stop)\s+(?:youtube|you\s*tube)", text
         ):
             return ParsedCommand("youtube", "pause", None, text)
 
-        # Resume YouTube
         if re.search(
             r"(?:resume|unpause|continue)\s+(?:youtube|you\s*tube)",
             text,
         ):
             return ParsedCommand("youtube", "resume", None, text)
 
-        # Fullscreen YouTube
         if re.search(
             r"(?:fullscreen|full\s*screen)\s+(?:youtube|you\s*tube)",
             text,
@@ -147,10 +140,7 @@ class CommandParser:
                 "youtube", "fullscreen", None, text
             )
 
-        # "open youtube" is handled by _parse_open_app via APP_KEYWORDS
         return None
-
-    # ── Spotify ──────────────────────────────────────────
 
     def _parse_spotify(self, text: str) -> ParsedCommand | None:
         """
@@ -162,7 +152,7 @@ class CommandParser:
         - "play song Blinding Lights"
         - "spotify volume 80"
         """
-        # Play specific song — but NOT if "on youtube" is present
+
         match = re.search(
             r"play\s+(?:song\s+|track\s+)?(.+)", text
         )
@@ -179,23 +169,19 @@ class CommandParser:
                     "spotify", "search_play", query, text
                 )
 
-        # Pause
         if re.search(
             r"\b(pause|stop\s+music|pause\s+music)\b", text
         ):
             return ParsedCommand("spotify", "pause", None, text)
 
-        # Resume
         if re.search(
             r"\b(resume|resume\s+music|unpause)\b", text
         ):
             return ParsedCommand("spotify", "resume", None, text)
 
-        # Next
         if re.search(r"\b(next\s+(?:song|track)|skip)\b", text):
             return ParsedCommand("spotify", "next", None, text)
 
-        # Previous
         if re.search(
             r"\b(previous\s+(?:song|track)|go\s+back\s+song)\b",
             text,
@@ -204,7 +190,6 @@ class CommandParser:
                 "spotify", "previous", None, text
             )
 
-        # Spotify volume
         match = re.search(r"spotify\s+volume\s+(\d{1,3})", text)
         if match:
             level = min(100, max(0, int(match.group(1))))
@@ -213,8 +198,6 @@ class CommandParser:
             )
 
         return None
-
-    # ── Volume ───────────────────────────────────────────
 
     def _parse_volume(self, text: str) -> ParsedCommand | None:
         if re.search(
@@ -254,8 +237,6 @@ class CommandParser:
             return ParsedCommand("volume", "mute", None, text)
 
         return None
-
-    # ── Maps ─────────────────────────────────────────────
 
     def _parse_maps_directions(
         self, text: str
@@ -299,8 +280,6 @@ class CommandParser:
                 "maps", "start_navigation", None, text
             )
         return None
-
-    # ── Apps / Search / WhatsApp / System ────────────────
 
     def _parse_open_app(self, text: str) -> ParsedCommand | None:
         match = re.search(

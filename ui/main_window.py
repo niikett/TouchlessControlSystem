@@ -497,7 +497,6 @@ class MainWindow(QMainWindow):
             level = data.get("level", 50)
             self.spotify_api.set_volume(level)
 
-        # ── YouTube actions ──────────────────────────────
         elif action == "youtube_search":
             query = data.get("query", "")
             self.open_app("youtube")
@@ -527,7 +526,6 @@ class MainWindow(QMainWindow):
                 yt_screen, "toggle_fullscreen"
             ):
                 yt_screen.toggle_fullscreen()
-        # ── End YouTube actions ──────────────────────────
 
         elif action == "volume_changed":
             level = data.get("level", 0)

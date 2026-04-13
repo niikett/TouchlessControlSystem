@@ -38,8 +38,6 @@ class CommandExecutor:
         )
         handler(command)
 
-    # ── YouTube ──────────────────────────────────────────
-
     def _handle_youtube(self, cmd: ParsedCommand):
         if cmd.action == "play":
             self.tts.speak(
@@ -68,8 +66,6 @@ class CommandExecutor:
         elif cmd.action == "fullscreen":
             self.tts.speak("Toggling fullscreen")
             self.ui_callback("youtube_fullscreen", {})
-
-    # ── Spotify ──────────────────────────────────────────
 
     def _handle_spotify(self, cmd: ParsedCommand):
         if cmd.action == "search_play":
@@ -102,8 +98,6 @@ class CommandExecutor:
             self.ui_callback(
                 "spotify_volume", {"level": level}
             )
-
-    # ── Volume ───────────────────────────────────────────
 
     def _handle_volume(self, cmd: ParsedCommand):
         if cmd.action == "set":
@@ -154,8 +148,6 @@ class CommandExecutor:
                 {"level": current, "muted": False},
             )
 
-    # ── Open App ─────────────────────────────────────────
-
     def _handle_open(self, cmd: ParsedCommand):
         app_id = cmd.value
         app_names = {
@@ -170,14 +162,10 @@ class CommandExecutor:
         self.tts.speak(f"Opening {name}")
         self.ui_callback("open_app", {"app": app_id})
 
-    # ── Search ───────────────────────────────────────────
-
     def _handle_search(self, cmd: ParsedCommand):
         query = cmd.value
         self.tts.speak(f"Searching for {query}")
         self.ui_callback("google_search", {"query": query})
-
-    # ── Maps ─────────────────────────────────────────────
 
     def _handle_maps(self, cmd: ParsedCommand):
         if cmd.action == "directions":
@@ -197,8 +185,6 @@ class CommandExecutor:
             self.tts.speak("Starting navigation")
             self.ui_callback("maps_start_navigation", {})
 
-    # ── WhatsApp ─────────────────────────────────────────
-
     def _handle_whatsapp(self, cmd: ParsedCommand):
         parts = cmd.value.split("|", 1)
         if len(parts) == 2:
@@ -213,8 +199,6 @@ class CommandExecutor:
         else:
             self.tts.speak("Couldn't understand the message")
 
-    # ── Translate ────────────────────────────────────────
-
     def _handle_translate(self, cmd: ParsedCommand):
         parts = cmd.value.split("|", 1)
         if len(parts) == 2:
@@ -228,8 +212,6 @@ class CommandExecutor:
             self.tts.speak(
                 "Couldn't understand translation request"
             )
-
-    # ── System ───────────────────────────────────────────
 
     def _handle_system(self, cmd: ParsedCommand):
         if cmd.action == "close":

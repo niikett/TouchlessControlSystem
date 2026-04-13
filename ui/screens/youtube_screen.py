@@ -30,7 +30,6 @@ class YouTubeScreen(QWidget):
         layout.setContentsMargins(20, 10, 20, 10)
         layout.setSpacing(8)
 
-        # ── Top bar ──────────────────────────────────────
         top = QHBoxLayout()
 
         back_btn = QPushButton("← Back")
@@ -184,8 +183,6 @@ class YouTubeScreen(QWidget):
         })();
         """
         self.browser.page().runJavaScript(js)
-
-    # ── Voice / programmatic controls ────────────────────
 
     def search_youtube(self, query):
         """Search YouTube programmatically (voice command)."""
