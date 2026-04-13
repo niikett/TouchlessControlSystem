@@ -1,4 +1,4 @@
-# 🧠 Touchless Control System (AI Glasses Interface)
+# 🧠 Touchless Control System
 
 A modular, gesture- and voice-controlled desktop interface that simulates an **AI Glasses HUD (Heads-Up Display)**. This project enables users to interact with applications using **hand gestures and voice commands**, eliminating the need for traditional input devices like a mouse or keyboard.
 
@@ -25,8 +25,9 @@ A modular, gesture- and voice-controlled desktop interface that simulates an **A
 
   * Google Search
   * Maps Navigation
+  * YouTube
   * WhatsApp Interaction
-  * Live Translation
+  * Spotify
 
 * ⚙️ **System Controls**
 
@@ -55,6 +56,7 @@ TouchlessControlSystem/
 │   └── tts_engine.py
 │
 ├── modules/               # Functional modules
+│   ├── spotify_controller.py
 │   └── google_search.py
 │
 ├── ui/                    # GUI layer
@@ -62,7 +64,8 @@ TouchlessControlSystem/
 │   ├── screens/
 │   │   ├── maps_screen.py
 │   │   ├── search_screen.py
-│   │   ├── translate_screen.py
+│   │   ├── spotify_screen.py
+│   │   ├── youtube_screen.py
 │   │   └── whatsapp_screen.py
 │   └── styles/
 │       └── hud_theme.qss
