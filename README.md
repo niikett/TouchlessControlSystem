@@ -1,27 +1,27 @@
-# 🧠 Touchless Control System
+# Touchless Control System
 
 A modular, gesture- and voice-controlled desktop interface that simulates an **AI Glasses HUD (Heads-Up Display)**. This project enables users to interact with applications using **hand gestures and voice commands**, eliminating the need for traditional input devices like a mouse or keyboard.
 
 ---
 
-## 🚀 Features
+## Features
 
-* ✋ **Hand Tracking & Gesture Control**
+* **Hand Tracking & Gesture Control**
 
   * Cursor movement using hand tracking
   * Gestures for click, scroll, and interaction
 
-* 🎙️ **Voice Command Engine**
+* **Voice Command Engine**
 
   * Natural language command parsing
   * System control (volume, navigation, app switching)
 
-* 🖥️ **HUD Interface**
+* **HUD Interface**
 
   * Fullscreen, glasses-like UI
   * Modular screen system (Search, Maps, WhatsApp, Translate)
 
-* 🌐 **Integrated Modules**
+* **Integrated Modules**
 
   * Google Search
   * Maps Navigation
@@ -29,12 +29,12 @@ A modular, gesture- and voice-controlled desktop interface that simulates an **A
   * WhatsApp Interaction
   * Spotify
 
-* ⚙️ **System Controls**
+* **System Controls**
 
   * Volume adjustment
   * Quick-open commands
 
-# ✋ Hand Gesture Control System
+# Hand Gesture Control System
 
 The system enables **touchless interaction using real-time hand gestures**, allowing users to control the cursor, perform clicks, and scroll without a mouse.
 
@@ -42,7 +42,7 @@ It leverages **computer vision (MediaPipe)** to detect hand landmarks and transl
 
 ---
 
-## 🧠 Gesture Processing Pipeline
+## Gesture Processing Pipeline
 
 ```
 Camera Input
@@ -62,7 +62,7 @@ System Interaction
 
 ---
 
-## 🎯 Supported Gestures
+## Supported Gestures
 
 | Gesture                | Finger State                      | Action      | Behavior        |
 |------------------------|-----------------------------------|-------------|-----------------|
@@ -73,9 +73,9 @@ System Interaction
 
 ---
 
-## 🖱️ Detailed Gesture Mapping
+## Detailed Gesture Mapping
 
-### 👆 Cursor Movement
+### Cursor Movement
 
 | Condition             | Behavior                           |  
 |-----------------------|------------------------------------|
@@ -90,7 +90,7 @@ System Interaction
 
 ---
 
-### 🤏 Left Click (Pinch Gesture)
+### Left Click (Pinch Gesture)
 
 | Condition                              | Behavior                       |
 |----------------------------------------|--------------------------------|
@@ -101,7 +101,7 @@ System Interaction
 
 ---
 
-### 🤏 Right Click
+### Right Click
 
 | Condition            | Behavior                        | 
 |----------------------|---------------------------------|
@@ -111,7 +111,7 @@ System Interaction
 
 ---
 
-### ✌️ Scroll Gesture
+### Scroll Gesture
 
 | Condition                 | Behavior                  |
 |---------------------------|---------------------------|
@@ -126,7 +126,7 @@ System Interaction
 
 ---
 
-## ⚙️ Gesture Priority System
+## Gesture Priority System
 
 To avoid conflicts, gestures are processed in priority order:
 
@@ -139,30 +139,30 @@ This ensures **stable and predictable interactions**.
 
 ---
 
-## 🎛️ Technical Highlights
+## Technical Highlights
 
-### 📍 Coordinate Mapping
+### Coordinate Mapping
 - Converts camera input → screen coordinates
 - Uses interpolation for accuracy
 - Applies bounding constraints
 
-### 🎯 Smoothing Algorithm
+### Smoothing Algorithm
 - Moving average over recent positions
 - Reduces jitter and noise
 - Improves user experience
 
-### ⏱️ Cooldown System
+### Cooldown System
 - Prevents rapid repeated clicks
 - Ensures controlled interactions
 
-### 📊 Scroll Accumulator
+### Scroll Accumulator
 - Smooth scrolling behavior
 - Avoids micro jitter
 - Converts motion into usable scroll input
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 - Requires good lighting conditions
 - Performance depends on camera quality
@@ -173,11 +173,11 @@ This ensures **stable and predictable interactions**.
 
 ---
 
-## 🎙️ Voice Command Reference
+## Voice Command Reference
 
 This system supports a wide range of natural language voice commands categorized by functionality.
 
-### 🔊 System Volume Controls
+### System Volume Controls
 
 | Command Examples                            | Action   | Behavior                       |
 | ------------------------------------------- | -------- | ------------------------------ |
@@ -190,7 +190,7 @@ This system supports a wide range of natural language voice commands categorized
 | "mute", "silence", "shut up"                | Mute     | Mutes system audio             |
 | "unmute"                                    | Unmute   | Restores system audio          |
 
-### 🎵 Spotify Controls
+### Spotify Controls
 
 | Command Examples         | Action   | Behavior              |
 | ------------------------ | -------- | --------------------- |
@@ -202,9 +202,9 @@ This system supports a wide range of natural language voice commands categorized
 | "previous song"          | Previous | Plays previous track  |
 | "spotify volume 80"      | Volume   | Sets Spotify volume   |
 
-> ⚠️ Default: "play <song>" uses Spotify unless YouTube is specified.
+> Default: "play <song>" uses Spotify unless YouTube is specified.
 
-### ▶️ YouTube Controls
+### YouTube Controls
 
 | Command Examples               | Action     | Behavior           |
 | ------------------------------ | ---------- | ------------------ |
@@ -216,7 +216,7 @@ This system supports a wide range of natural language voice commands categorized
 | "resume youtube"               | Resume     | Resumes video      |
 | "fullscreen youtube"           | Fullscreen | Toggles fullscreen |
 
-### 🗺️ Google Maps Controls
+### Google Maps Controls
 
 | Command Examples           | Action        | Behavior            |
 | -------------------------- | ------------- | ------------------- |
@@ -227,7 +227,7 @@ This system supports a wide range of natural language voice commands categorized
 | "show hospitals nearby"    | Nearby Search | Finds nearby places |
 | "start navigation"         | Start         | Begins navigation   |
 
-### 🔍 Google Search
+### Google Search
 
 | Command Examples           | Action | Behavior               |
 | -------------------------- | ------ | ---------------------- |
@@ -235,9 +235,9 @@ This system supports a wide range of natural language voice commands categorized
 | "google machine learning"  | Search | Performs search        |
 | "look up Python tutorials" | Search | Performs search        |
 
-> 🔎 Queries with "near me" are handled by Maps.
+> Queries with "near me" are handled by Maps.
 
-### 💬 WhatsApp Messaging
+### WhatsApp Messaging
 
 | Command Examples             | Action | Behavior      |
 | ---------------------------- | ------ | ------------- |
@@ -245,7 +245,7 @@ This system supports a wide range of natural language voice commands categorized
 | "whatsapp Rahul hi"          | Send   | Sends message |
 | "message Aman call me"       | Send   | Sends message |
 
-### 📱 Application Launch
+### Application Launch
 
 | Command Examples | Action   | Behavior            |
 | ---------------- | -------- | ------------------- |
@@ -256,7 +256,7 @@ This system supports a wide range of natural language voice commands categorized
 | "open google"    | Open App | Launches Search     |
 | "go to home"     | Open App | Returns to main HUD |
 
-### 🔙 System Navigation
+### System Navigation
 
 | Command Examples  | Action   | Behavior        |
 | ----------------- | -------- | --------------- |
@@ -266,7 +266,7 @@ This system supports a wide range of natural language voice commands categorized
 
 ---
 
-## 🧠 Voice Processing Pipeline
+## Voice Processing Pipeline
 
 ```
 User Speech
@@ -284,7 +284,7 @@ Text-to-Speech Feedback
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 TouchlessControlSystem/
@@ -328,7 +328,7 @@ TouchlessControlSystem/
 
 ---
 
-## 🎯 Development Phases
+## Development Phases
 
 | Phase | Description                     |
 | ----- | ------------------------------- |
@@ -338,10 +338,11 @@ TouchlessControlSystem/
 | 4     | GUI shell (HUD interface)       |
 | 5     | Gesture + GUI integration       |
 | 6     | Voice command engine            |
-| 7     | Google Search module            |
-| 8     | Maps module                     |
+| 7     | Google Search integration       |
+| 8     | Maps integration                |
 | 9     | WhatsApp integration            |
-| 10    | Live Translation                |
+| 10    | Spotify integration             |
+| 10    | YouTube integration             |
 | 11    | System controls via voice       |
 | 12    | Quick-open voice commands       |
 | 13    | Full integration testing        |
@@ -353,7 +354,7 @@ TouchlessControlSystem/
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 * Computer Vision: MediaPipe, OpenCV
 * Automation: PyAutoGUI
@@ -363,7 +364,7 @@ TouchlessControlSystem/
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 git clone https://github.com/your-username/TouchlessControlSystem.git
@@ -375,7 +376,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Usage
+## Usage
 
 ```bash
 python main.py
@@ -386,7 +387,7 @@ python main.py
 
 ---
 
-## ⚠️ Known Limitations
+## Known Limitations
 
 * Performance depends on lighting and camera quality
 * Voice recognition may vary based on environment
@@ -394,7 +395,7 @@ python main.py
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 
 * AI-based NLP for better command understanding
 * Cross-platform system controls
@@ -402,7 +403,3 @@ python main.py
 * Translation module integration
 
 ---
-
-## ⭐ Contribution
-
-Feel free to fork, improve, and submit PRs!
