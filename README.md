@@ -288,26 +288,38 @@ Text-to-Speech Feedback
 
 ```
 TouchlessControlSystem/
-├── core/                  # Core architecture components
-│   ├── event_bus.py       # Event-driven communication
-│   └── state_manager.py   # Global state handling
+├── core/                  
+│   ├── event_bus.py       
+│   └── state_manager.py   
 │
-├── hand_tracking/         # Gesture & tracking logic
+├── hand_tracking/        
 │   ├── tracker.py
 │   ├── cursor_controller.py
 │   └── gesture_recognizer.py
 │
-├── voice/                 # Voice processing system
+├── voice/                
 │   ├── listener.py
 │   ├── command_parser.py
 │   ├── command_executor.py
 │   └── tts_engine.py
 │
-├── modules/               # Functional modules
+├── modules/              
 │   ├── spotify_controller.py
 │   └── google_search.py
 │
-├── ui/                    # GUI layer
+├── metrics/               
+│   ├── gesture_benchmark.py
+│   ├── system_benchmark.py
+│   ├── voice_benchmark.py
+│   ├── formulas.txt
+│   ├── plots/
+│   │   ├── gesture_confusion_matrix.png
+│   │   ├── system_performance.png
+│   │   └── voice_confusion_matrix.png
+│   └── test_data/
+│       └── voice_test_cases.py
+│
+├── ui/                    
 │   ├── main_window.py
 │   ├── screens/
 │   │   ├── maps_screen.py
@@ -318,12 +330,12 @@ TouchlessControlSystem/
 │   └── styles/
 │       └── hud_theme.qss
 │
-├── utils/                 # System utilities
+├── utils/                 
 │   └── system_controls.py
 │
-├── config.py              # Configuration settings
-├── main.py                # Entry point
-└── requirements.txt       # Dependencies
+├── config.py              
+├── main.py                
+└── requirements.txt       
 ```
 
 ---
@@ -367,7 +379,7 @@ TouchlessControlSystem/
 ## Installation
 
 ```bash
-git clone https://github.com/your-username/TouchlessControlSystem.git
+git clone https://github.com/niikett/TouchlessControlSystem.git
 cd TouchlessControlSystem
 python -m venv venv
 source venv/bin/activate
