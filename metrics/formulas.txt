@@ -1,0 +1,6 @@
+Accuracy      = (True Positives + True Negatives) / Total × 100
+Precision     = TP / (TP + FP)
+Recall        = TP / (TP + FN)
+F1-Score      = 2 × (Precision × Recall) / (Precision + Recall)
+FPS           = 1000 / Avg Frame Time (ms)
+Latency       = End Time - Start Time

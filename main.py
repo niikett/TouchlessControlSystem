@@ -6,13 +6,10 @@ import sys
 import threading
 import os
 
-# ✅ FORCE ANGLE (DirectX backend)
 os.environ["QT_OPENGL"] = "angle"
 
-# ✅ Use DirectX instead of OpenGL
 os.environ["QT_ANGLE_PLATFORM"] = "d3d11"
 
-# ✅ QtWebEngine safe flags
 os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = (
     "--disable-gpu "
     "--disable-software-rasterizer "
