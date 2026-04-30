@@ -4,15 +4,20 @@ import subprocess
 system = platform.system()
 
 if system == "Windows":
-    from pycaw.pycaw import AudioUtilities
+    from ctypes import cast, POINTER
+    from comtypes import CLSCTX_ALL
+    from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 
     def _get_volume():
-        """Get the endpoint volume interface (new pycaw API)."""
-        speakers = AudioUtilities.GetSpeakers()
-        return speakers.EndpointVolume
-
+            import comtypes
+            comtypes.CoInitialize()  
+            devices = AudioUtilities.GetSpeakers()
+            interface = devices.Activate(
+                IAudioEndpointVolume._iid_, CLSCTX_ALL, None
+            )
+            return cast(interface, POINTER(IAudioEndpointVolume))
+    
     def set_volume(percent: int) -> int:
-        """Set system volume instantly (0-100)."""
         percent = max(0, min(100, percent))
         vol = _get_volume()
         vol.SetMasterVolumeLevelScalar(percent / 100, None)
@@ -20,7 +25,7 @@ if system == "Windows":
 
     def get_volume() -> int:
         vol = _get_volume()
-        return int(vol.GetMasterVolumeLevelScalar() * 100)
+        return int(round(vol.GetMasterVolumeLevelScalar() * 100))
 
     def mute():
         vol = _get_volume()
@@ -33,7 +38,6 @@ if system == "Windows":
     def is_muted() -> bool:
         vol = _get_volume()
         return bool(vol.GetMute())
-
 
 elif system == "Darwin":
     def set_volume(percent: int) -> int:
