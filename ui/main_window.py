@@ -65,7 +65,7 @@ class TopBar(QFrame):
             Qt.AlignRight | Qt.AlignVCenter
         )
 
-        self.voice_label = QLabel("🎙️ OFF")
+        self.voice_label = QLabel("● OFF")
         self.voice_label.setObjectName("hudLabel")
 
         layout.addWidget(self.status_label)
@@ -88,11 +88,11 @@ class TopBar(QFrame):
 
     def set_voice_status(self, active: bool):
         if active:
-            self.voice_label.setText("🎙️ LISTENING")
-            self.voice_label.setStyleSheet("color: #00ff88;")
+            self.voice_label.setText("● LISTENING")
+            self.voice_label.setStyleSheet("color: #000000;")
         else:
-            self.voice_label.setText("🎙️ OFF")
-            self.voice_label.setStyleSheet("color: #666;")
+            self.voice_label.setText("● OFF")
+            self.voice_label.setStyleSheet("color: #000000;")
 
 
 class AppButton(QPushButton):
