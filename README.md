@@ -321,6 +321,7 @@ TouchlessControlSystem/
 │
 ├── ui/                    
 │   ├── main_window.py
+│   ├── hand_tracker_overlay.py
 │   ├── screens/
 │   │   ├── maps_screen.py
 │   │   ├── search_screen.py
