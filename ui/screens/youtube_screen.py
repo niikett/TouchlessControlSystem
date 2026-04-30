@@ -1,7 +1,5 @@
 """YouTube screen with embedded browser and persistent sign-in."""
 
-import os
-
 from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -11,12 +9,9 @@ from PyQt5.QtWidgets import (
     QLineEdit,
 )
 from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QFont
-from PyQt5.QtWebEngineWidgets import (
-    QWebEngineView,
-    QWebEnginePage,
-    QWebEngineProfile,
-)
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+
+from ui.screens.persistent_profile import get_shared_profile
 
 
 class YouTubeScreen(QWidget):
@@ -95,35 +90,10 @@ class YouTubeScreen(QWidget):
         self._pending_autoplay = False
 
     def _setup_browser(self):
-        """Create browser with persistent profile for YouTube sign-in."""
-        profile_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "..",
-            "..",
-            "browser_data",
-            "youtube_profile",
-        )
-        profile_path = os.path.normpath(profile_path)
-        os.makedirs(profile_path, exist_ok=True)
-
-        self.profile = QWebEngineProfile(
-            "youtube_persistent", self
-        )
-        self.profile.setPersistentStoragePath(profile_path)
-        self.profile.setCachePath(
-            os.path.join(profile_path, "cache")
-        )
-        self.profile.setPersistentCookiesPolicy(
-            QWebEngineProfile.ForcePersistentCookies
-        )
-
-        self.profile.setHttpUserAgent(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        )
-
+        """Create browser with shared persistent profile."""
+        self.profile = get_shared_profile(self)
         self.page = QWebEnginePage(self.profile, self)
+
         self.browser = QWebEngineView()
         self.browser.setPage(self.page)
         self.browser.setStyleSheet(
@@ -160,7 +130,7 @@ class YouTubeScreen(QWidget):
         if ok:
             title = self.browser.page().title()
             self.status.setText(f"✓ {title}")
-        
+
             if self._pending_autoplay:
                 self._pending_autoplay = False
                 self._click_first_video()
@@ -215,9 +185,7 @@ class YouTubeScreen(QWidget):
         """Toggle fullscreen on the current YouTube video."""
         js = """
         (function() {
-            var btn = document.querySelector(
-                '.ytp-fullscreen-button'
-            );
+            var btn = document.querySelector('.ytp-fullscreen-button');
             if (btn) { btn.click(); }
         })();
         """

@@ -9,8 +9,9 @@ import os
 os.environ["QT_OPENGL"] = "angle"
 os.environ["QT_ANGLE_PLATFORM"] = "d3d11"
 os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = (
-    "--disable-gpu "
-    "--disable-software-rasterizer "
+    "--disable-blink-features=AutomationControlled "
+    "--disable-features=IsolateOrigins,site-per-process "
+    "--disable-web-security "
     "--no-sandbox"
 )
 os.environ["QTWEBENGINE_DISABLE_SANDBOX"] = "1"

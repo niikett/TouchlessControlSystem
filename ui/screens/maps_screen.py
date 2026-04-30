@@ -109,40 +109,12 @@ class MapsScreen(QWidget):
         layout.addWidget(self.status)
 
     def _setup_browser(self):
-        """
-        Create browser with persistent profile.
-        Google sign-in and location permissions persist
-        across app restarts.
-        """
-        profile_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "..",
-            "..",
-            "browser_data",
-            "maps_profile",
-        )
-        profile_path = os.path.normpath(profile_path)
-        os.makedirs(profile_path, exist_ok=True)
+        """Create browser with shared persistent profile."""
+        from ui.screens.persistent_profile import get_shared_profile
 
-        self.profile = QWebEngineProfile(
-            "maps_persistent", self
-        )
-        self.profile.setPersistentStoragePath(profile_path)
-        self.profile.setCachePath(
-            os.path.join(profile_path, "cache")
-        )
-        self.profile.setPersistentCookiesPolicy(
-            QWebEngineProfile.ForcePersistentCookies
-        )
-
-        self.profile.setHttpUserAgent(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        )
+        self.profile = get_shared_profile(self)
 
         self.page = QWebEnginePage(self.profile, self)
-
         self.page.featurePermissionRequested.connect(
             self._handle_permission
         )
@@ -152,7 +124,6 @@ class MapsScreen(QWidget):
         self.browser.setStyleSheet(
             "background-color: #1a1a2e; border-radius: 10px;"
         )
-
         self.browser.setUrl(QUrl("https://www.google.com/maps"))
 
     def _handle_permission(self, url, feature):

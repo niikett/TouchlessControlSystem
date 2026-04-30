@@ -1,7 +1,5 @@
 """Google Search screen with embedded browser and persistent sign-in."""
 
-import os
-
 from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
@@ -11,12 +9,9 @@ from PyQt5.QtWidgets import (
     QLineEdit,
 )
 from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QFont
-from PyQt5.QtWebEngineWidgets import (
-    QWebEngineView,
-    QWebEnginePage,
-    QWebEngineProfile,
-)
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+
+from ui.screens.persistent_profile import get_shared_profile
 
 
 class SearchScreen(QWidget):
@@ -75,7 +70,6 @@ class SearchScreen(QWidget):
         layout.addLayout(top)
 
         self._setup_browser()
-
         layout.addWidget(self.browser)
 
         self.status = QLabel("Ready")
@@ -94,34 +88,8 @@ class SearchScreen(QWidget):
         self.browser.loadFinished.connect(self._on_load_finished)
 
     def _setup_browser(self):
-        """Create browser with persistent profile (shared sign-in)."""
-        profile_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            "..",
-            "..",
-            "browser_data",
-            "search_profile",
-        )
-        profile_path = os.path.normpath(profile_path)
-        os.makedirs(profile_path, exist_ok=True)
-
-        self.profile = QWebEngineProfile(
-            "search_persistent", self
-        )
-        self.profile.setPersistentStoragePath(profile_path)
-        self.profile.setCachePath(
-            os.path.join(profile_path, "cache")
-        )
-        self.profile.setPersistentCookiesPolicy(
-            QWebEngineProfile.ForcePersistentCookies
-        )
-
-        self.profile.setHttpUserAgent(
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        )
-
+        """Create browser with shared persistent profile."""
+        self.profile = get_shared_profile(self)
         self.page = QWebEnginePage(self.profile, self)
 
         self.browser = QWebEngineView()
@@ -142,9 +110,7 @@ class SearchScreen(QWidget):
                 text = "https://" + text
             self.browser.setUrl(QUrl(text))
         else:
-            search_url = (
-                f"https://www.google.com/search?q={text}"
-            )
+            search_url = f"https://www.google.com/search?q={text}"
             self.browser.setUrl(QUrl(search_url))
 
     def _go_google(self):
@@ -166,9 +132,7 @@ class SearchScreen(QWidget):
     def search_from_voice(self, query):
         """Programmatic search from voice command."""
         self.url_bar.setText(query)
-        search_url = (
-            f"https://www.google.com/search?q={query}"
-        )
+        search_url = f"https://www.google.com/search?q={query}"
         self.browser.setUrl(QUrl(search_url))
 
     def perform_search(self, query):
