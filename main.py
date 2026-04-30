@@ -7,16 +7,14 @@ import threading
 import os
 
 os.environ["QT_OPENGL"] = "angle"
-
 os.environ["QT_ANGLE_PLATFORM"] = "d3d11"
-
 os.environ["QTWEBENGINE_CHROMIUM_FLAGS"] = (
     "--disable-gpu "
     "--disable-software-rasterizer "
     "--no-sandbox"
 )
-
 os.environ["QTWEBENGINE_DISABLE_SANDBOX"] = "1"
+
 from PyQt5.QtWebEngine import QtWebEngine
 QtWebEngine.initialize()
 
@@ -26,7 +24,6 @@ from PyQt5.QtCore import Qt
 QApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
 QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
 
-
 import cv2
 from ui.main_window import MainWindow
 from hand_tracking.tracker import HandTracker
@@ -35,13 +32,12 @@ from hand_tracking.cursor_controller import CursorController
 from config import CAMERA_INDEX, CAMERA_WIDTH, CAMERA_HEIGHT
 
 
-def run_hand_tracking(stop_event):
+def run_hand_tracking(stop_event, tracker):
     """Run hand tracking in a background thread."""
     cap = cv2.VideoCapture(CAMERA_INDEX)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, CAMERA_WIDTH)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, CAMERA_HEIGHT)
 
-    tracker = HandTracker()
     gesture_rec = GestureRecognizer()
     cursor = CursorController()
 
@@ -60,22 +56,27 @@ def run_hand_tracking(stop_event):
         gesture = gesture_rec.detect_gesture(tips, fingers_up)
         cursor.execute(gesture)
 
+        tracker.draw_landmarks(frame)
+
     tracker.release()
     cap.release()
     print("[HAND TRACKING] Stopped")
 
+
 def main():
     app = QApplication(sys.argv)
+
+    tracker = HandTracker()
 
     stop_event = threading.Event()
     tracking_thread = threading.Thread(
         target=run_hand_tracking,
-        args=(stop_event,),
+        args=(stop_event, tracker),
         daemon=True,
     )
     tracking_thread.start()
 
-    window = MainWindow()
+    window = MainWindow(hand_tracker=tracker)
     window.show()
 
     exit_code = app.exec_()

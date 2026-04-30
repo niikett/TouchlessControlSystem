@@ -21,6 +21,7 @@ from PyQt5.QtGui import QFont, QColor, QIcon, QPixmap
 from core.state_manager import state
 from core.event_bus import event_bus
 from modules.spotify_controller import SpotifyController
+from ui.hand_tracker_overlay import HandTrackerOverlay
 
 ICONS_DIR = os.path.join(os.path.dirname(__file__), "icons")
 
@@ -273,9 +274,10 @@ class PlaceholderScreen(QWidget):
 class MainWindow(QMainWindow):
     """Main application window — the HUD."""
 
-    def __init__(self):
+    def __init__(self, hand_tracker=None):
         super().__init__()
 
+        self.hand_tracker = hand_tracker
         self.spotify_api = SpotifyController()
 
         self.setWindowTitle("AI Glasses")
@@ -317,6 +319,7 @@ class MainWindow(QMainWindow):
         )
 
         self._init_voice_system()
+        self._setup_hand_overlay()
 
     def _load_stylesheet(self):
         qss_path = os.path.join(
@@ -335,7 +338,10 @@ class MainWindow(QMainWindow):
         from PyQt5.QtWidgets import QShortcut
         from PyQt5.QtGui import QKeySequence
 
-        shortcut = QShortcut(QKeySequence(key), self)
+        if isinstance(key, str):
+            shortcut = QShortcut(QKeySequence(key), self)
+        else:
+            shortcut = QShortcut(QKeySequence(key), self)
         shortcut.activated.connect(callback)
         return shortcut
 
@@ -554,14 +560,12 @@ class MainWindow(QMainWindow):
 
     def open_app(self, screen_name):
         if screen_name in self.screens:
-            self.stack.setCurrentWidget(
-                self.screens[screen_name]
-            )
+            self.stack.setCurrentWidget(self.screens[screen_name])
             state.set_screen(screen_name)
-            self.notif_label.setText(
-                f"Opened {screen_name}"
-            )
+            self.notif_label.setText(f"Opened {screen_name}")
             print(f"[NAV] Opened: {screen_name}")
+            if hasattr(self, "hand_overlay"):
+                self.hand_overlay.raise_()
 
     def go_home(self):
         self.stack.setCurrentWidget(self.screens["home"])
@@ -569,6 +573,8 @@ class MainWindow(QMainWindow):
         self.notif_label.setText(
             "System ready — gesture control active"
         )
+        if hasattr(self, "hand_overlay"):
+            self.hand_overlay.raise_()
 
     def set_notification(self, message, level="info"):
         self.notif_label.setText(message)
@@ -594,3 +600,45 @@ class MainWindow(QMainWindow):
                 screen.profile.deleteLater()
 
         event.accept()
+
+    def _setup_hand_overlay(self):
+        """Create the floating hand tracker preview overlay."""
+        if not self.hand_tracker:
+            print("[OVERLAY] No hand tracker provided — skipping")
+            return
+
+        self.hand_overlay = HandTrackerOverlay(
+            self.hand_tracker, parent=self.centralWidget()
+        )
+        self.hand_overlay.show()
+        self._position_hand_overlay()
+        self.hand_overlay.raise_()
+
+        self._bind_key(
+            "Ctrl+H", self._toggle_hand_overlay
+        )
+
+    def _position_hand_overlay(self):
+        """Place overlay in bottom-right corner with margin."""
+        if not hasattr(self, "hand_overlay"):
+            return
+        margin = 20
+        parent = self.centralWidget()
+        x = parent.width() - self.hand_overlay.width() - margin
+        y = parent.height() - self.hand_overlay.height() - margin - 45
+        self.hand_overlay.move(max(0, x), max(0, y))
+
+    def _toggle_hand_overlay(self):
+        if not hasattr(self, "hand_overlay"):
+            return
+        if self.hand_overlay.isVisible():
+            self.hand_overlay.hide()
+        else:
+            self.hand_overlay.show()
+            self.hand_overlay.raise_()
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._position_hand_overlay()
+        if hasattr(self, "hand_overlay"):
+            self.hand_overlay.raise_()
