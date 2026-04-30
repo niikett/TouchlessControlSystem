@@ -74,17 +74,14 @@ class YouTubeScreen(QWidget):
 
         layout.addLayout(top)
 
-        # ── Browser ──────────────────────────────────────
         self._setup_browser()
         layout.addWidget(self.browser)
 
-        # ── Status bar ───────────────────────────────────
         self.status = QLabel("Ready")
         self.status.setObjectName("hudLabel")
         self.status.setFixedHeight(20)
         layout.addWidget(self.status)
 
-        # ── Connections ──────────────────────────────────
         self.nav_back_btn.clicked.connect(self.browser.back)
         self.nav_forward_btn.clicked.connect(self.browser.forward)
         self.refresh_btn.clicked.connect(self.browser.reload)
@@ -95,7 +92,6 @@ class YouTubeScreen(QWidget):
         )
         self.browser.loadFinished.connect(self._on_load_finished)
 
-        # Flag to track pending auto-play
         self._pending_autoplay = False
 
     def _setup_browser(self):
@@ -164,7 +160,7 @@ class YouTubeScreen(QWidget):
         if ok:
             title = self.browser.page().title()
             self.status.setText(f"✓ {title}")
-            # Auto-click first video if pending
+        
             if self._pending_autoplay:
                 self._pending_autoplay = False
                 self._click_first_video()

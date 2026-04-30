@@ -57,7 +57,7 @@ class SpotifyScreen(QWidget):
         back_btn.clicked.connect(back_callback)
         back_btn.setCursor(Qt.PointingHandCursor)
 
-        title = QLabel("🎵 Spotify")
+        title = QLabel("Spotify")
         title.setObjectName("hudTitle")
         title.setFont(QFont("Segoe UI", 16, QFont.Light))
 

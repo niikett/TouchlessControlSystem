@@ -38,7 +38,7 @@ class MapsScreen(QWidget):
         back_btn.clicked.connect(back_callback)
         back_btn.setCursor(Qt.PointingHandCursor)
 
-        title = QLabel("🗺️ Maps")
+        title = QLabel("Maps")
         title.setObjectName("hudTitle")
         font = QFont("Segoe UI", 16, QFont.Light)
         title.setFont(font)
@@ -97,7 +97,7 @@ class MapsScreen(QWidget):
 
         self._setup_browser()
 
-        layout.addWidget(self.browser)
+        layout.addWidget(self.browser, 1)
 
         self.status = QLabel("📍 Google Maps loaded")
         self.status.setObjectName("hudLabel")

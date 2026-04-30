@@ -31,7 +31,7 @@ class WhatsAppScreen(QWidget):
         back_btn.clicked.connect(back_callback)
         back_btn.setCursor(Qt.PointingHandCursor)
 
-        title = QLabel("💬 WhatsApp")
+        title = QLabel("WhatsApp")
         title.setObjectName("hudTitle")
         font = QFont("Segoe UI", 16, QFont.Light)
         title.setFont(font)
